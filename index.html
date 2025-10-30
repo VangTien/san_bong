@@ -29,7 +29,7 @@
       });
     }
 
-    // Intersection Observer: chỉ chạy khi phần tử đi vào vùng nhìn thấy
+    // Intersection Observer cho hiệu ứng xuất hiện
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -47,7 +47,7 @@
 
     elements.forEach(el => observer.observe(el));
 
-    // Hiệu ứng mở trang tổng thể (fade toàn trang)
+    // Hiệu ứng fade toàn trang
     document.body.style.opacity = "0";
     document.body.style.transform = "scale(1.02)";
     setTimeout(() => {
@@ -56,7 +56,7 @@
       document.body.style.transform = "scale(1)";
     }, 100);
 
-    // Đảm bảo footer luôn hiển thị (nếu nhỏ hoặc luôn trong khung nhìn)
+    // Footer xuất hiện mượt
     window.addEventListener("load", () => {
       const footer = document.querySelector("footer");
       if (footer && !footer.classList.contains("visible")) {
@@ -70,6 +70,7 @@
   <header>
     <h1>⚽ Sân bóng Khoa Ngữ</h1>
   </header>
+
   <main>
     <!-- Hình ảnh -->
     <section class="section image-section">
@@ -100,7 +101,7 @@
     </section>
 
     <!-- Bản đồ -->
-    <section class="section map-section">
+    <section class="section map-section" id="dat-san">
       <h2><img src="icons/map.png" alt="Map icon" class="icon"> Vị trí sân bóng</h2>
       <p class="map-address">Ấp Long Thạnh B, Xã Long Khánh, Tỉnh Đồng Tháp</p>
       <div class="map-container">
@@ -116,14 +117,15 @@
       <div class="cta-content">
         <h2><img src="icons/san.png" alt="Đặt sân" class="icon"> Rủ hội bạn, chọn giờ, vào sân chơi thôi!</h2>
         <p>Chọn khung giờ yêu thích và cùng bạn bè tận hưởng những trận cầu sôi động tại sân bóng Khoa Ngữ.</p>
+        <!-- Giữ link bình thường, không bật menu -->
         <a href="#dat-san" class="cta-button">Đặt sân ngay</a>
       </div>
     </section>
   </main>
   
   <footer>
-    © 2025 <span style="font-weight:600;">Sân bóng Khoa Ngữ</span> — Thiết kế bởi <span style="font-weight:650;">Nguyễn Văng Ngọc Tiến</span>
+    © 2025 <span style="font-weight:600;">Sân bóng Khoa Ngữ</span> — Thiết kế bởi 
+    <span style="font-weight:650;">Nguyễn Văng Ngọc Tiến</span>
   </footer>
-
 </body>
 </html>
