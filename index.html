@@ -6,83 +6,39 @@
   <title>Sân bóng Khoa Ngữ</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Hiệu ứng mở trang */
+    body {
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    body.page-loaded {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
 </head>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const elements = document.querySelectorAll("header, .section, .cta-section, footer");
-
-    // Gán class reveal + delay tự động
-    elements.forEach((el, i) => {
-      el.classList.add("reveal", `delay-${(i % 5) + 1}`);
-    });
-
-    // Phát hiện thiết bị di động
-    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-
-    // Tối ưu hiệu ứng cho mobile (nhẹ hơn)
-    if (isMobile) {
-      elements.forEach(el => {
-        el.style.transition = "all 0.7s ease-out";
-        el.style.filter = "blur(6px)";
-        el.style.transform = "translateY(40px) scale(0.98)";
-      });
-    }
-
-    // Intersection Observer cho hiệu ứng xuất hiện
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px"
-      }
-    );
-
-    elements.forEach(el => observer.observe(el));
-
-    // Hiệu ứng fade toàn trang
-    document.body.style.opacity = "0";
-    document.body.style.transform = "scale(1.02)";
-    setTimeout(() => {
-      document.body.style.transition = "opacity 1s ease, transform 1s ease";
-      document.body.style.opacity = "1";
-      document.body.style.transform = "scale(1)";
-    }, 100);
-
-    // Footer xuất hiện mượt
-    window.addEventListener("load", () => {
-      const footer = document.querySelector("footer");
-      if (footer && !footer.classList.contains("visible")) {
-        setTimeout(() => footer.classList.add("visible"), 800);
-      }
-    });
-  });
-</script>
-
 <body>
-  <header>
+  <header class="reveal">
     <h1>⚽ Sân bóng Khoa Ngữ</h1>
+    <p>Tận hưởng không khí thể thao sôi động và kết nối bạn bè!</p>
   </header>
 
   <main>
     <!-- Hình ảnh -->
-    <section class="section image-section">
+    <section class="section reveal">
       <h2><img src="icons/camera.png" alt="Ảnh" class="icon"> Khoảnh khắc tại sân bóng</h2>
       <div class="gallery">
-        <img src="images/img1.jpg" alt="Ảnh 1">
-        <img src="images/img2.jpg" alt="Ảnh 2">
+        <img src="images/img1.jpg" alt="Ảnh 1" class="reveal">
+        <img src="images/img2.jpg" alt="Ảnh 2" class="reveal">
+        <img src="images/img3.jpg" alt="Ảnh 3" class="reveal">
       </div>
     </section>
 
     <!-- Video -->
-    <section class="section video-section">
+    <section class="section reveal">
       <h2><img src="icons/video.png" alt="Video" class="icon"> Video sân bóng</h2>
       <div class="video-list">
         <iframe src="https://www.youtube.com/embed/L7vQyP2ZqIY" allowfullscreen></iframe>
@@ -90,7 +46,7 @@
     </section>
 
     <!-- Trải nghiệm 360° -->
-    <section class="section vr-section">
+    <section class="section reveal">
       <h2><img src="icons/vr.png" alt="360" class="icon"> Trải nghiệm thực tế ảo 360°</h2>
       <div class="vr-container">
         <iframe 
@@ -101,8 +57,8 @@
     </section>
 
     <!-- Bản đồ -->
-    <section class="section map-section" id="dat-san">
-      <h2><img src="icons/map.png" alt="Map icon" class="icon"> Vị trí sân bóng</h2>
+    <section class="section reveal" id="dat-san">
+      <h2><img src="icons/map.png" alt="Map" class="icon"> Vị trí sân bóng</h2>
       <p class="map-address">Ấp Long Thạnh B, Xã Long Khánh, Tỉnh Đồng Tháp</p>
       <div class="map-container">
         <iframe 
@@ -113,19 +69,42 @@
     </section>
 
     <!-- Đặt sân -->
-    <section class="cta-section">
+    <section class="cta-section reveal">
       <div class="cta-content">
         <h2><img src="icons/san.png" alt="Đặt sân" class="icon"> Rủ hội bạn, chọn giờ, vào sân chơi thôi!</h2>
         <p>Chọn khung giờ yêu thích và cùng bạn bè tận hưởng những trận cầu sôi động tại sân bóng Khoa Ngữ.</p>
-        <!-- Giữ link bình thường, không bật menu -->
-        <a href="#dat-san" class="cta-button">Đặt sân ngay</a>
+        <a href="#dat-san" class="cta-button pulse-glow">Đặt sân ngay</a>
       </div>
     </section>
   </main>
-  
-  <footer>
+
+  <footer class="reveal">
     © 2025 <span style="font-weight:600;">Sân bóng Khoa Ngữ</span> — Thiết kế bởi 
-    <span style="font-weight:650;">Nguyễn Văng Ngọc Tiến</span>
+    <a href="https://bio.link/tinngcxv" target="_blank" class="author-link">Nguyễn Văng Ngọc Tiến</a>
   </footer>
+
+  <script>
+    // Khi tải xong thì fade-in trang
+    window.addEventListener("load", () => {
+      document.body.classList.add("page-loaded");
+    });
+
+    // Hiệu ứng xuất hiện từng phần khi cuộn
+    const reveals = document.querySelectorAll(".reveal, .gallery img");
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    reveals.forEach(r => observer.observe(r));
+  </script>
 </body>
 </html>
