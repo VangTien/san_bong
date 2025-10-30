@@ -7,11 +7,69 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const elements = document.querySelectorAll("header, .section, .cta-section, footer");
+
+    // Gán class reveal + delay tự động
+    elements.forEach((el, i) => {
+      el.classList.add("reveal", `delay-${(i % 5) + 1}`);
+    });
+
+    // Phát hiện thiết bị di động
+    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+    // Tối ưu hiệu ứng cho mobile (nhẹ hơn)
+    if (isMobile) {
+      elements.forEach(el => {
+        el.style.transition = "all 0.7s ease-out";
+        el.style.filter = "blur(6px)";
+        el.style.transform = "translateY(40px) scale(0.98)";
+      });
+    }
+
+    // Intersection Observer: chỉ chạy khi phần tử đi vào vùng nhìn thấy
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -50px 0px"
+      }
+    );
+
+    elements.forEach(el => observer.observe(el));
+
+    // Hiệu ứng mở trang tổng thể (fade toàn trang)
+    document.body.style.opacity = "0";
+    document.body.style.transform = "scale(1.02)";
+    setTimeout(() => {
+      document.body.style.transition = "opacity 1s ease, transform 1s ease";
+      document.body.style.opacity = "1";
+      document.body.style.transform = "scale(1)";
+    }, 100);
+
+    // Đảm bảo footer luôn hiển thị (nếu nhỏ hoặc luôn trong khung nhìn)
+    window.addEventListener("load", () => {
+      const footer = document.querySelector("footer");
+      if (footer && !footer.classList.contains("visible")) {
+        setTimeout(() => footer.classList.add("visible"), 800);
+      }
+    });
+  });
+</script>
+
 <body>
   <header>
     <h1>⚽ Sân bóng Khoa Ngữ</h1>
   </header>
-
   <main>
     <!-- Hình ảnh -->
     <section class="section image-section">
@@ -62,9 +120,10 @@
       </div>
     </section>
   </main>
-
+  
   <footer>
-    © 2025 Sân bóng Khoa Ngữ — Thiết kế bởi Nhóm Khoa Ngữ
+    © 2025 <span style="font-weight:600;">Sân bóng Khoa Ngữ</span> — Thiết kế bởi <span style="font-weight:650;">Nguyễn Văng Ngọc Tiến</span>
   </footer>
+
 </body>
 </html>
