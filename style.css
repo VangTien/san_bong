@@ -83,31 +83,70 @@ main {
 }
 
 /* ==============================
-   GALLERY
+   GALLERY SLIDER - MỚI, ĐẸP, CHUYÊN NGHIỆP
 ============================== */
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-}
-
-.gallery img {
+  position: relative;
   width: 100%;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 255, 153, 0.1);
-  transition: transform 0.8s ease, box-shadow 0.8s ease, opacity 1s ease;
-  opacity: 0;
-  transform: scale(0.95);
+  height: 420px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 255, 153, 0.2);
 }
 
-.gallery img.visible {
+.gallery-images {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-images img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1s ease-in-out, transform 1.5s ease;
+  filter: brightness(0.9) saturate(1.1);
+}
+
+.gallery-images img.active {
   opacity: 1;
   transform: scale(1);
+  z-index: 2;
 }
 
-.gallery img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 255, 153, 0.25);
+.gallery:hover img.active {
+  filter: brightness(1);
+}
+
+/* Dots điều khiển ảnh */
+.gallery-dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 5;
+}
+
+.gallery-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gallery-dots span.active {
+  background: #00ff99;
+  transform: scale(1.3);
+  box-shadow: 0 0 10px rgba(0,255,153,0.6);
 }
 
 /* ==============================
@@ -147,37 +186,64 @@ main {
 
 .cta-button {
   display: inline-block;
-  background-color: #0a84ff;
-  color: #ffffff;
-  font-weight: 600;
-  padding: 12px 28px;
-  border-radius: 50px;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(10, 132, 255, 0.25);
   position: relative;
   overflow: hidden;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 12px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  background: linear-gradient(90deg, #00bfff, #0077ff);
+  background-size: 200% auto;
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
+  transition: all 0.25s ease;
+  animation: gradientShift 5s ease infinite, pulse 3s ease-in-out infinite;
 }
 
+/* Gradient động nút CTA */
+@keyframes gradientShift {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+/* Hiệu ứng ánh sáng quét ngang */
 .cta-button::before {
   content: "";
   position: absolute;
   top: 0;
   left: -100%;
-  width: 100%;
+  width: 70%;
   height: 100%;
   background: rgba(255, 255, 255, 0.3);
   transform: skewX(-25deg);
-  transition: 0.5s;
+  transition: 0.6s;
+  animation: shineMove 4s infinite;
 }
 
-.cta-button:hover::before {
-  left: 200%;
+@keyframes shineMove {
+  0% { left: -100%; }
+  50% { left: 120%; }
+  100% { left: 120%; }
 }
 
+/* Hover và click nút CTA */
 .cta-button:hover {
-  transform: scale(1.06);
-  box-shadow: 0 6px 20px rgba(10, 132, 255, 0.35);
+  transform: scale(1.08);
+  box-shadow: 0 0 25px rgba(0, 191, 255, 0.8), 0 0 40px rgba(0, 191, 255, 0.6);
+}
+
+.cta-button:active {
+  transform: scale(0.94) translateY(2px);
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
+  transition: transform 0.1s cubic-bezier(0.3, 1.4, 0.4, 1);
+}
+
+/* Hiệu ứng nhịp đập nhẹ */
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px rgba(0, 191, 255, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(0, 191, 255, 0.7); }
+  100% { box-shadow: 0 0 10px rgba(0, 191, 255, 0.3); }
 }
 
 /* ==============================
@@ -216,87 +282,12 @@ footer {
   .section h2 { font-size: 1.5rem; }
   .video-list iframe,
   .vr-container iframe { height: 220px; }
+  .gallery { height: 280px; }
 }
 
 /* ==============================
-   HIỆU ỨNG ĐẶC BIỆT CHO NÚT "ĐẶT SÂN NGAY" (XANH DƯƠNG)
+   LINK TÁC GIẢ
 ============================== */
-
-.cta-button {
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-  color: #ffffff;
-  font-weight: 600;
-  padding: 12px 30px;
-  border-radius: 50px;
-  text-decoration: none;
-  background: linear-gradient(90deg, #00bfff, #0077ff);
-  background-size: 200% auto;
-  box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
-  transition: all 0.25s ease;
-  animation: gradientShift 5s ease infinite, pulse 3s ease-in-out infinite;
-}
-
-/* Hiệu ứng gradient di chuyển */
-@keyframes gradientShift {
-  0% { background-position: 0% center; }
-  50% { background-position: 100% center; }
-  100% { background-position: 0% center; }
-}
-
-/* Hiệu ứng ánh sáng quét ngang */
-.cta-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 70%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: skewX(-25deg);
-  transition: 0.6s;
-  animation: shineMove 4s infinite;
-}
-
-@keyframes shineMove {
-  0% { left: -100%; }
-  50% { left: 120%; }
-  100% { left: 120%; }
-}
-
-/* Phát sáng khi hover */
-.cta-button:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 25px rgba(0, 191, 255, 0.8), 0 0 40px rgba(0, 191, 255, 0.6);
-}
-
-/* Hiệu ứng click “nẩy nhẹ” khi nhấn */
-.cta-button:active {
-  transform: scale(0.94) translateY(2px);
-  box-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
-  transition: transform 0.1s cubic-bezier(0.3, 1.4, 0.4, 1);
-}
-
-/* Nhịp đập nhẹ (pulse) để thu hút mắt nhìn */
-@keyframes pulse {
-  0% { box-shadow: 0 0 10px rgba(0, 191, 255, 0.3); }
-  50% { box-shadow: 0 0 25px rgba(0, 191, 255, 0.7); }
-  100% { box-shadow: 0 0 10px rgba(0, 191, 255, 0.3); }
-}
-
-/* ==============================
-   HIỆU ỨNG NHẤP NÚT (CLICK FEEDBACK)
-============================== */
-.cta-button {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.cta-button:active {
-  transform: scale(0.94) translateY(2px);
-  box-shadow: 0 2px 8px rgba(10, 132, 255, 0.3);
-}
-
 .author-link {
   color: #00d5ff;
   font-weight: 650;
@@ -306,6 +297,5 @@ footer {
 }
 
 .author-link:hover {
-  color: #00e0ff; /* xanh lam ngọc nhẹ, sáng dịu, sang hơn */
+  color: #00e0ff;
 }
-
