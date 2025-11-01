@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sân bóng Khoa Ngữ</title>
+
+  <!-- Font & CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Hiệu ứng mở trang (fade-in khi load xong) */
+    body {
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    body.page-loaded {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="reveal">
+    <h1>⚽ Sân bóng Khoa Ngữ</h1>
+    <p>Tận hưởng không khí thể thao sôi động và kết nối bạn bè!</p>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <!-- Hình ảnh (tải động từ photos/gallery.html) -->
+    <div id="gallery-container"></div>
+
+    <!-- Video -->
+    <section class="section reveal">
+      <h2><img src="icons/video.png" alt="Video" class="icon"> Video sân bóng</h2>
+      <div class="video-list">
+        <iframe 
+          src="https://www.youtube.com/embed/L7vQyP2ZqIY"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Trải nghiệm 360° -->
+    <section class="section reveal">
+      <h2><img src="icons/vr.png" alt="360" class="icon"> Trải nghiệm thực tế ảo 360°</h2>
+      <div class="vr-container">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!4v1690000000000!6m8!1m7!1sCAoSLEFGMVFpcE1..."
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Bản đồ -->
+    <section class="section reveal" id="dat-san">
+      <h2><img src="icons/map.png" alt="Map" class="icon"> Vị trí sân bóng</h2>
+      <p class="map-address">Ấp Long Thạnh B, Xã Long Khánh, Tỉnh Đồng Tháp</p>
+      <div class="map-container">
+        <iframe 
+          src="https://www.google.com/maps?q=10.79828,105.3081&hl=vi&z=15&output=embed"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Đặt sân -->
+    <section class="cta-section reveal">
+      <div class="cta-content">
+        <h2><img src="icons/san.png" alt="Đặt sân" class="icon"> Rủ hội bạn, chọn giờ, vào sân chơi thôi!</h2>
+        <p>Chọn khung giờ yêu thích và cùng bạn bè tận hưởng những trận cầu sôi động tại sân bóng Khoa Ngữ.</p>
+        <a href="#dat-san" class="cta-button">Đặt sân ngay</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="reveal">
+    © 2025 <span style="font-weight:600;">Sân bóng Khoa Ngữ</span> — Thiết kế bởi 
+    <a href="https://bio.link/tinngcxv" target="_blank" class="author-link">Nguyễn Văng Ngọc Tiến</a>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    // Hiệu ứng mở trang
+    window.addEventListener("load", () => {
+      document.body.classList.add("page-loaded");
+    });
+
+    // Hiệu ứng xuất hiện khi cuộn
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+    // Tải gallery.html và CSS riêng
+    fetch("photos/gallery.html")
+      .then(response => {
+        if (!response.ok) throw new Error("Không thể tải gallery.html");
+        return response.text();
+      })
+      .then(data => {
+        const container = document.getElementById("gallery-container");
+        container.innerHTML = data;
+
+        // Thêm CSS gallery
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "photos/gallery.css";
+        document.head.appendChild(link);
+
+        // Sau khi thêm ảnh, thêm hiệu ứng reveal cho gallery
+        container.querySelectorAll("img").forEach(img => observer.observe(img));
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>

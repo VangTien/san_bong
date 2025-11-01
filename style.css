@@ -1,0 +1,311 @@
+/* ==============================
+   TOÀN TRANG VÀ NỀN ĐỘNG
+============================== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  color: #e0ffe0;
+  background: radial-gradient(circle at top left, #0f0f0f, #001a12 40%, #002b20 80%);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ==============================
+   HEADER
+============================== */
+header {
+  background: linear-gradient(135deg, #00ff99, #006644);
+  color: #0f0f0f;
+  text-align: center;
+  padding: 60px 20px 80px;
+  border-bottom-left-radius: 60px;
+  border-bottom-right-radius: 60px;
+  box-shadow: 0 8px 25px rgba(0, 255, 153, 0.25);
+}
+
+header h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* ==============================
+   MAIN
+============================== */
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* ==============================
+   SECTION
+============================== */
+.section {
+  background-color: #1a1a1a;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 255, 153, 0.08);
+  margin-bottom: 40px;
+  padding: 25px;
+}
+
+.section:hover {
+  box-shadow: 0 12px 30px rgba(0, 255, 153, 0.12);
+}
+
+.section h2 {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  color: #00ff99;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* Icon */
+.icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+}
+
+/* ==============================
+   GALLERY
+============================== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 255, 153, 0.1);
+  transition: transform 0.8s ease, box-shadow 0.8s ease, opacity 1s ease;
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.gallery img.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 255, 153, 0.25);
+}
+
+/* ==============================
+   VIDEO, VR, MAP
+============================== */
+.video-list iframe,
+.vr-container iframe,
+.map-container iframe {
+  width: 100%;
+  height: 300px;
+  border: none;
+  border-radius: 15px;
+  background-color: #000;
+  box-shadow: 0 4px 15px rgba(0, 255, 153, 0.1);
+}
+
+/* ==============================
+   CTA SECTION
+============================== */
+.cta-section {
+  background: linear-gradient(135deg, #00ff99, #006644);
+  color: #0f0f0f;
+  text-align: center;
+  padding: 40px 20px;
+  border-radius: 30px;
+  box-shadow: 0 8px 25px rgba(0, 255, 153, 0.2);
+}
+
+.cta-content h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #0a84ff;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(10, 132, 255, 0.25);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.cta-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-25deg);
+  transition: 0.5s;
+}
+
+.cta-button:hover::before {
+  left: 200%;
+}
+
+.cta-button:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 20px rgba(10, 132, 255, 0.35);
+}
+
+/* ==============================
+   FOOTER
+============================== */
+footer {
+  background-color: #0a2f23;
+  color: #a0a0a0;
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9rem;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+}
+
+/* ==============================
+   HIỆU ỨNG CUỘN (REVEAL)
+============================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+@media screen and (max-width: 768px) {
+  header h1 { font-size: 2rem; }
+  .cta-content h2 { font-size: 1.6rem; }
+  .section h2 { font-size: 1.5rem; }
+  .video-list iframe,
+  .vr-container iframe { height: 220px; }
+}
+
+/* ==============================
+   HIỆU ỨNG ĐẶC BIỆT CHO NÚT "ĐẶT SÂN NGAY" (XANH DƯƠNG)
+============================== */
+
+.cta-button {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 12px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  background: linear-gradient(90deg, #00bfff, #0077ff);
+  background-size: 200% auto;
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
+  transition: all 0.25s ease;
+  animation: gradientShift 5s ease infinite, pulse 3s ease-in-out infinite;
+}
+
+/* Hiệu ứng gradient di chuyển */
+@keyframes gradientShift {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+/* Hiệu ứng ánh sáng quét ngang */
+.cta-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-25deg);
+  transition: 0.6s;
+  animation: shineMove 4s infinite;
+}
+
+@keyframes shineMove {
+  0% { left: -100%; }
+  50% { left: 120%; }
+  100% { left: 120%; }
+}
+
+/* Phát sáng khi hover */
+.cta-button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px rgba(0, 191, 255, 0.8), 0 0 40px rgba(0, 191, 255, 0.6);
+}
+
+/* Hiệu ứng click “nẩy nhẹ” khi nhấn */
+.cta-button:active {
+  transform: scale(0.94) translateY(2px);
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
+  transition: transform 0.1s cubic-bezier(0.3, 1.4, 0.4, 1);
+}
+
+/* Nhịp đập nhẹ (pulse) để thu hút mắt nhìn */
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px rgba(0, 191, 255, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(0, 191, 255, 0.7); }
+  100% { box-shadow: 0 0 10px rgba(0, 191, 255, 0.3); }
+}
+
+/* ==============================
+   HIỆU ỨNG NHẤP NÚT (CLICK FEEDBACK)
+============================== */
+.cta-button {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cta-button:active {
+  transform: scale(0.94) translateY(2px);
+  box-shadow: 0 2px 8px rgba(10, 132, 255, 0.3);
+}
+
+.author-link {
+  color: #00d5ff;
+  font-weight: 650;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.author-link:hover {
+  color: #00e0ff; /* xanh lam ngọc nhẹ, sáng dịu, sang hơn */
+}
+
