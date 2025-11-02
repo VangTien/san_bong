@@ -4,8 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sân bóng Khoa Ngữ</title>
+  <link rel="icon" type="image/png" sizes="128x128" href="icons/favicon.png">
+
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap" rel="stylesheet">
+
+  <!-- CSS chính -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- CSS riêng cho Gallery Slider -->
+  <link rel="stylesheet" href="gallery-slider.css">
+
   <style>
     /* Hiệu ứng mở trang */
     body {
@@ -27,7 +36,7 @@
   </header>
 
   <main>
-    <!-- GALLERY ẢNH -->
+    <!-- GALLERY ẢNH (inline để tránh lỗi tải cục bộ) -->
     <section class="section reveal">
       <h2><img src="icons/camera.png" alt="Ảnh" class="icon"> Khoảnh khắc tại sân bóng</h2>
       <div class="gallery">
@@ -37,31 +46,33 @@
           <img src="images/img3.jpg" alt="Ảnh 3">
         </div>
         <div class="gallery-dots">
-          <span class="active"></span>
-          <span></span>
-          <span></span>
+          <span class="active" aria-label="Slide 1"></span>
+          <span aria-label="Slide 2"></span>
+          <span aria-label="Slide 3"></span>
         </div>
       </div>
+      <noscript>
+        <p style="color:#ccc">Bật JavaScript để xem slideshow ảnh.</p>
+      </noscript>
     </section>
 
     <!-- VIDEO -->
     <section class="section reveal">
       <h2><img src="icons/video.png" alt="Video" class="icon"> Video sân bóng</h2>
       <div class="video-list">
-        <iframe src="https://www.youtube.com/embed/L7vQyP2ZqIY" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/qIvvOBZN5R4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Video sân bóng"></iframe>
       </div>
     </section>
 
     <!-- 360° -->
-    <section class="section reveal">
-      <h2><img src="icons/vr.png" alt="360" class="icon"> Trải nghiệm thực tế ảo 360°</h2>
-      <div class="vr-container">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!4v1690000000000!6m8!1m7!1sCAoSLEFGMVFpcE1..."
-          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
-    </section>
+    <div id="vr-section"></div>
+    <script>
+      fetch("vr-section.html")
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById("vr-section").innerHTML = html;
+        });
+    </script>
 
     <!-- BẢN ĐỒ -->
     <section class="section reveal" id="dat-san">
@@ -70,7 +81,7 @@
       <div class="map-container">
         <iframe 
           src="https://www.google.com/maps?q=10.79828,105.3081&hl=vi&z=15&output=embed"
-          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ vị trí">
         </iframe>
       </div>
     </section>
@@ -87,57 +98,15 @@
 
   <footer class="reveal">
     © 2025 <span style="font-weight:600;">Sân bóng Khoa Ngữ</span> — Thiết kế bởi 
-    <a href="https://bio.link/tinngcxv" target="_blank" class="author-link">Nguyễn Văng Ngọc Tiến</a>
+    <a href="https://bio.link/tinngcxv" target="_blank" class="author-link" rel="noopener noreferrer">Nguyễn Văng Ngọc Tiến</a>
   </footer>
 
-  <script>
-    // Khi tải xong thì fade-in trang
-    window.addEventListener("load", () => {
-      document.body.classList.add("page-loaded");
-    });
+  <!-- JS chính -->
+  <script src="script.js"></script>
 
-    // Hiệu ứng xuất hiện từng phần khi cuộn
-    const reveals = document.querySelectorAll(".reveal, .gallery img");
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-    reveals.forEach(r => observer.observe(r));
-
-    // GALLERY SLIDER chuyên nghiệp
-    const slides = document.querySelectorAll('.gallery-images img');
-    const dots = document.querySelectorAll('.gallery-dots span');
-    let current = 0;
-
-    function showSlide(index) {
-      slides.forEach((img, i) => {
-        img.classList.toggle('active', i === index);
-        dots[i].classList.toggle('active', i === index);
-      });
-      current = index;
-    }
-
-    function nextSlide() {
-      const next = (current + 1) % slides.length;
-      showSlide(next);
-    }
-
-    let slideInterval = setInterval(nextSlide, 5000);
-
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        clearInterval(slideInterval);
-        showSlide(i);
-        slideInterval = setInterval(nextSlide, 5000);
-      });
-    });
-  </script>
+  <!-- JS riêng cho Gallery Slider -->
+  <script src="gallery-slider.js"></script>
 </body>
 </html>
+
+
